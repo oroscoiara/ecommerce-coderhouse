@@ -1,0 +1,26 @@
+.containerNav{
+    justify-content: space-between;
+    width: 100%;
+    background-color: rgb(255, 243, 68);
+    font-style: normal;
+    display:flex;
+    position: sticky;
+    margin-top: 0;
+    align-items: center;
+    padding: 1rem;
+}
+
+.logo{
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+    padding: 5px 5px 5px 5px;
+    align-items:flex-start;
+    margin: 0,5rem;
+    float: left;
+}
+
+p{
+    cursor: pointer;
+    color: black;
+}
