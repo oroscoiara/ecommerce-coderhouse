@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemList from '../ItemList/ItemList';
-
+import './ItemListContainer.css'
+import {getCatalog} from '../Firebase/index'
 
 const items1 = [
     {
@@ -33,7 +34,6 @@ const items1 = [
         imgUrl: 'https://i.imgur.com/XyfxJFl.jpg'
     },
 ];
-
 
 const ItemListContainer = () => {
     const [items, setItems] = useState([]);

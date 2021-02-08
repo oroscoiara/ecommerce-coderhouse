@@ -1,0 +1,28 @@
+.loading__div {
+    margin: 55px auto;
+  }
+  
+  .message__title {
+      color: black;
+  }
+  
+  .App-logo {
+    height: 20px;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      margin-bottom: 15px;
+      animation: App-logo-spin infinite 10s linear;
+    }
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

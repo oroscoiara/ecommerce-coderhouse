@@ -1,9 +1,11 @@
+import React from 'react'
 import './App.css';
 import Navbar1 from './Components/NavBar/NavBar'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import ItemListContainer from './Components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './Components/ItemDetailContainer/ItemDetailContainer';
 import CartWidget from './Components/CartWidget/CartWidget'
+import {CartProvider} from './Context/CartContext'
 
 function App() {
   return (
@@ -34,4 +36,3 @@ function App() {
 
 export default App;
 
-/* probando */

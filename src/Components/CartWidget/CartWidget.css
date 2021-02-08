@@ -1,5 +1,24 @@
-img {
-    width: 25%;
-    height: 25%;
-    float: right;
+.user_cart {
+    position: relative;
+    margin-right: 10px;
+}
+
+.user_cart a {
+    display: flex;
+    color: black;
+    align-items: center;
+}
+
+.carticon:hover {
+    color:black;
+}
+
+.cart_link {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.counter {
+    padding: 5px;
 }

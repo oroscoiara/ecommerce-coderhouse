@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemDetail from '../ItemDetail/ItemDetail';
-
+import Loading from '../Loading/Loading'
+import {getCatalog} from '../Firebase/index'
 
 const items = [
     {
@@ -33,6 +34,7 @@ const items = [
         imgUrl: 'https://i.imgur.com/XyfxJFl.jpg'
     },
 ];
+
 
 const ItemDetailContainer = () => {
     const [item, setItem]= useState({});
@@ -68,3 +70,37 @@ const ItemDetailContainer = () => {
 };
 
 export default ItemDetailContainer
+
+
+/*const ItemDetailContainer = ({loading}) => {
+    const [item, setItem]= useState({});
+    const {itemId} = useParams();
+
+    useEffect(() => {
+        getCatalog().then(querySnapshot => {
+            querySnapshot.size === 0 && console("No results")
+            let result = querySnapshot.docs.map(doc => {
+                return ({
+                    id: doc.id,
+                    ...doc.data()
+                })
+            })
+            const product = result.find(product => product.id === itemId)
+            console.log(product)
+            setItem(product)
+        });
+    }, [itemId])
+            
+return(
+        <>
+        { item.hasOwnProperty("id") ? 
+        <ItemDetail 
+        item={item}/> 
+        : <Loading loading={loading} />
+}
+</>
+        
+    )
+};
+
+export default ItemDetailContainer */

@@ -1,0 +1,60 @@
+.item-count {
+    width: 100%;
+    margin: 24px;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    border: 1px solid white;
+    border-left: 3px solid #63b231;
+    border-right: 3px solid #63b231;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+}
+
+.controllers {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    border: 1px solid white;
+    margin-bottom: 10px;
+}
+
+.button {
+    padding: 0px;
+    padding-bottom: 5px;
+    margin: 0px;
+    background-color: white;
+    border: none;
+}
+
+.count {
+    padding: 3px;
+}
+
+.add-item {
+    cursor: pointer;
+    width: 100%;
+    padding: 3px;
+    font-size: 17px;
+    color: white;
+    background-color: black;
+    border: 2px outset white;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.add-item:disabled {
+    background-color: gray;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.add-item:disabled .cart-icon {
+    color: white;
+}
+
+.cart-icon {
+    margin-left: 6px;
+    margin-bottom: -2px;
+    color: #000000;
+}

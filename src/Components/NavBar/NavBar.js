@@ -13,14 +13,13 @@ const Navbar1 = () => {
                 <img src={ logo } className="logo" alt="logo" />
             </div>
             </NavLink>
-            <p> <a href=".#action/1.1">Productos</a></p>
+            <p> <a href="/">Productos</a></p>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
                     <NavDropdown.Item href="/category/perros">Perros</NavDropdown.Item>
                     <NavDropdown.Item href="/category/gatos">Gatos</NavDropdown.Item>
                     <NavDropdown.Item href="/">Todos</NavDropdown.Item>
                     <NavDropdown.Divider />
                     </NavDropdown>
-            <p> <a href="./contact.html">Contact</a></p>
             <p> <CartWidget> Carrito </CartWidget> </p>          
         </div>
     )   

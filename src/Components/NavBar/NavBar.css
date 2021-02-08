@@ -5,7 +5,8 @@
     font-style: normal;
     display:flex;
     position: sticky;
-    margin-top: 0;
+    top: 0px;
+
     align-items: center;
     padding: 1rem;
 }
