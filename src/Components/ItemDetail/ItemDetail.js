@@ -1,16 +1,18 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom'
 import Count from '../ItemCount/Count'
-import {CartContext} from '../../Context/CartContext'
+import { useCartContext } from '../../Context/CartContext'
 import "./ItemDetail.css"
 import CartModal from "../Modal/CartModal"
 
 const ItemDetail = ({ item }) => {
-    const HandleCounter = (count) => {
-        console.log(count)
-    }
+
+    const [count, setCount] = useState(0);
     
-    const [counter, setCounter] = useState(initial)
+    const handleCount = count => {
+        setCount(count)
+    }
+
     return(
         <div>
         <img src={item.imgUrl} alt="imagenproducto" />
@@ -18,7 +20,7 @@ const ItemDetail = ({ item }) => {
         <h3>{item.description}</h3>
         <h3>{item.price}</h3>
         <h3>{item.stock}</h3>
-        <Count initial={0} stock={item.stock} onAdd={HandleCounter} />
+        <Count initial={1} stock={item.stock} onAdd={handleCount} />
         <Link to="/cart">Agregar al cart</Link>
         </div>
         )}

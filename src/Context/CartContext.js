@@ -1,64 +1,41 @@
-/*import React, { createContext, useState, useContext} from "react"
+import React, { createContext, useState, useContext} from 'react';
 
-export const CartContext = createContext(null)
-export const AppCartContext= () => useContext(CartContext)
-export const CartProvider = ({children}) => {
+const CartContext = createContext(null)
+const useCartContext= () => useContext(CartContext);
 
+export const CartProvider = ({ children }) => {
+    const [items, setItems] = useState([])
     const [cart, setCart] = useState([])
-    const [stock, setStock] = useState() 
-    const [addItems, setAddItems] = useState(0)
+    const [addItems, setAddItems] = useState([])
 
-    const addProduct = (item, addItems) => {
-        const purchase = {
-               item: {
-                    id: item.id,
-                    title: item.title,
-                    description: item.description,
-                    price: item.price,
-                    stock: item.stock,
-                    perfilter: item.perfilter,
-                    imgUrl: item.imgUrl
-                },
-                quantity: addItems 
-            }
-            mergeDuplicate(purchase, purchase.item.itemId, addItems)
-            cartCounter()
-        console.log("Item completo", item)
-        console.log("Item reducido", purchase)
-    }
 
-    const searchIdInCart = (itemId) => {
-        return cart.find(ticket => ticket.item.itemId === itemId)    
-    }
+    const addItem = (item, quantity) => {
+        setItems([...items, {item, quantity }])
+        if ( items !== -1) {
+            alert("Producto ya agregado al carrito")
+        } else {
+            setItems([...items, {
+                "id": item.id,
+                "titutlo": item.title,
+                "precio": item.precio,
+                "cantidad": quantity
+            }])
+        };
 
-    const addMoreToCart = (itemId, addItems) => {  
-        searchIdInCart(itemId).quantity += addItems
-    }
+    const inCart = itemId => {
+        return items.some(i => i.item.id === itemId)};
 
-    const mergeDuplicate = (purchase, itemId, addItems) => { 
-        !cart.length ? setCart(cart => [...cart, purchase]) 
-        : searchIdInCart(itemId) ? addMoreToCart(itemId, addItems) : setCart(cart => [...cart, purchase])
-    }
-
-    const changeQuantity = (itemId, counter) => {  
-        searchIdInCart(itemId).quantity = counter
-        setCart([...cart])
-        console.log("Cart", cart)
-    }
-
-    const removeFromCart = (itemId) => { 
-        const filtered = cart.filter(purchase => 
-            purchase.item.itemId !== itemId
-        )
-        searchIdInCart(itemId).counter +=  searchIdInCart(itemId).quantity
-        setCart(filtered)
-    }
+    const deleteFromCart = itemId => { 
+        setItems(items.filter(i => i.item.id != itemId))}
+        inCart(itemId).counter += inCart(itemId).quantity
+        setCart([])
+    ;
 
     const cartCounter = () => { 
         let totalItems = []
         let sum = 0;
-        cart.map(purchase => {
-            return totalItems.push(purchase.quantity)
+        cart.map(compra => {
+            return totalItems.push(compra.quantity)
         })
         console.log("cantidad:", totalItems)
         totalItems.length < 2 ? sum = totalItems[0]
@@ -67,35 +44,23 @@ export const CartProvider = ({children}) => {
             return sum = accumulator + currentValue
         })
         return sum
-    }
+    };
 
     const total = () => {
-        let subtotal = []
-        let sum = 0
-        cart.map(purchase => {
-            return subtotal.push(purchase.item.price * purchase.quantity)
-        })
-        subtotal.length < 2 ? sum = (subtotal[0])
-        : subtotal.reduce((accumulator, currentValue) => {
-            return sum = (accumulator + currentValue)
-        })
-        console.log(sum)
-        return sum
-    }
+        return items.reduce((acc, i) => acc + i.quantity)
+    };
 
     const clearCart = () => {
-        setCart([])
-    }
-
-    console.log("Cart", cart)
-
+        setCart([]);
+    };
 
     return (
-        <CartContext.Provider value={{cart, setCart, stock, setStock, addItems, setAddItems, searchIdInCart,
-          addMoreToCart, changeQuantity, removeFromCart, addProduct, mergeDuplicate, clearCart, total, cartCounter}}>
+        <CartContext.Provider value={{cart, setCart, addItems, addItem, setAddItems, inCart,
+         deleteFromCart, clearCart, total, cartCounter}}>
             {children}
         </CartContext.Provider>
-    )
-}
+    );
+        }};
+        
 
-*/
+export default useCartContext

@@ -1,10 +1,10 @@
 import React, {useEffect, useContext} from 'react'
-import "./cartview.css"
+import './cartview.css'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import CartItem from "../Cart/Cart"
-import { Link } from "react-router-dom"
+import CartItem from '../Cart/Cart'
+import { Link } from 'react-router-dom'
 
-import { CartContext } from "../../Context/CartContext"
+import useCartContext from '../../Context/CartContext'
 
 const CartView = () => {
 
@@ -35,7 +35,6 @@ const CartView = () => {
                 </div>
                 <div className="cartview_notItems">
                     <h2>Su carrito está vacío</h2>
-                    <img src={process.env.PUBLIC_URL + "/images/empty-box.png"} alt="carrito vacío"/>
                     <Link to="/">
                     <button className="cartview_button">Continuar comprando</button>
                     </Link>

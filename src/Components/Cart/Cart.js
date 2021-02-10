@@ -1,27 +1,29 @@
 import React, { useContext, useEffect } from 'react'
-import { Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
-import { CartContext } from "../../context/CartContext"
+import useCartContext, {CartContext} from "../../context/CartContext"
 import "./cart.css";
+import 'firebase/firestore';
 
+
+const Cart = () => {
+    const {addItem, inCart} = useCartContext()
+}
 export default function Cart() {
 
     const { cart, removeItem } = useContext(CartContext)
-    console.log("cart",cart)
-
 
     const resumenCompra = () => {
-        const productosSeleccionados = cart.map((producto, i) => {
+        const productosSeleccionados = cart.map((item, i) => {
             return (
-                <tr key={producto.id}>
+                <tr key={item.id}>
                     <td>{i + 1}</td>
-                    <td>{producto.linea}-{producto.varietal}</td>
-                    <td>{producto.cantidad}</td>
-                    <td>$ {producto.precio}</td>
-                    <td>$ {producto.cantidad * producto.precio}</td>
-                    <td onClick={()=>removeItem(producto.id)} className="iconLink"> <FontAwesomeIcon icon={faTrashAlt} /></td>
+                    <td>{item.title}</td>
+                    <td>{item.quantity}</td>
+                    <td>$ {item.price}</td>
+                    <td>$ {item.quantity * item.price}</td>
+                    <td onClick={()=>removeItem(item.id)} className="iconLink"> <FontAwesomeIcon icon={faTrashAlt} /></td>
                 </tr>
             )
         })
@@ -54,22 +56,10 @@ export default function Cart() {
         )
     }
 
-    const carritoVacio = () => {
-        return (
-            <>
-                <tr>
-                    <td colspan="6">Ud no ha agregado ningún producto aún a su carrito </td>
-                </tr>
-                <tr>
-                    <td colspan="6"><Link to="../"><Button variant="outline-dark">Volver al Home </Button></Link> </td>
-                </tr>
-
-            </>
-        )
-    }
+    
     return (
         <div>
-            <h3>Este es el carrito </h3>
+            <h3>Cart</h3>
             <Table striped bordered>
                 <thead>
                     <tr>
