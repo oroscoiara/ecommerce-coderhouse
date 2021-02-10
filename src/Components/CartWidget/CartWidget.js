@@ -2,22 +2,8 @@ import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import {CartContext} from '../../Context/CartContext'
+import CartContext from '../../Context/CartContext';
 
-
-const CartWidget = () => {
-
-    return(
-        <FontAwesomeIcon icon={faShoppingCart} />
-        
-    );
-;} 
-
-export default CartWidget;
-
-
-
-/*
 const CartWidget = () => {
 
     const [cart, cartCounter] = useContext(CartContext)
@@ -33,8 +19,7 @@ const CartWidget = () => {
             </Link>
         </div>
     )
-}
+};
    
 
-
-export default CartWidget */
+export default CartWidget;

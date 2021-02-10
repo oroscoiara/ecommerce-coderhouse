@@ -89,37 +89,3 @@ const ItemDetailContainer = () => {
 };
 
 export default ItemDetailContainer
-
-
-/*const ItemDetailContainer = ({loading}) => {
-    const [item, setItem]= useState({});
-    const {itemId} = useParams();
-
-    useEffect(() => {
-        getCatalog().then(querySnapshot => {
-            querySnapshot.size === 0 && console("No results")
-            let result = querySnapshot.docs.map(doc => {
-                return ({
-                    id: doc.id,
-                    ...doc.data()
-                })
-            })
-            const product = result.find(product => product.id === itemId)
-            console.log(product)
-            setItem(product)
-        });
-    }, [itemId])
-            
-return(
-        <>
-        { item.hasOwnProperty("id") ? 
-        <ItemDetail 
-        item={item}/> 
-        : <Loading loading={loading} />
-}
-</>
-        
-    )
-};
-
-export default ItemDetailContainer */
