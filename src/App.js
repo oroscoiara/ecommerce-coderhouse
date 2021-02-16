@@ -4,9 +4,10 @@ import Navbar1 from './Components/NavBar/NavBar'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import ItemListContainer from './Components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './Components/ItemDetailContainer/ItemDetailContainer';
-import CartWidget from './Components/CartWidget/CartWidget'
+import CartContainer from './Components/CartContainer/CartContainer'
 import {CartProvider} from './Context/CartContext'
-import CartContext from './Context/CartContext'
+import CartWidget from './Components/CartWidget/CartWidget'
+
 
 
 function App() {

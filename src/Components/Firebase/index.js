@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import '@firebase/firestore'
+import '@firebase/firestore';
 
 const app = firebase.initializeApp({
     apiKey: "AIzaSyAX3opHB7faqMyc9sZakDfOtxemJp5IKLI",
@@ -17,6 +17,8 @@ export function getFirestore() {
     return firebase.firestore(app);
 }
 
+
+/*
 export function getCatalog() {
   const db = getFirestore();
   const catalog = db.collection("catalog");
@@ -28,3 +30,4 @@ export function getCategories() {
     const categories = db.collection("categorie").orderBy("order", "asc")
     return categories.get() 
   }
+*/

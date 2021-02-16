@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemDetail from '../ItemDetail/ItemDetail';
-import Loading from '../Loading/Loading'
-import {getCatalog, getFirestore} from '../Firebase/index'
+import { getFirestore} from '../Firebase/index'
 
 const items = [
     {
@@ -36,53 +35,48 @@ const items = [
 ];
 
 
-const ItemDetailContainer = () => {
-    const {id} = useParams();
-    const [item, setItem]= useState({}); //en setItem guardo en est local lo que me traigo de db
+const ItemDetailContainer = ({ items }) => {
     const [count, setCount] = useState(0)
-    const [cartItems, setCartItems] = useContext(useContext)
+    const [loading, setLoading]  = useState(true)
+    const [selectedItem, setSelectedItem] = useState([]);
+    const [buttonVisibility, setButtonVisibility] = useState(false);
+    const itemId = useParams();
+
+    // const [item, setItem]= useState({}); //en setItem guardo en est local lo que me traigo de db
+    //    const [cartItems, setCartItems] = useContext(useContext)
     
     useEffect(() => {
-        const db= getFirestore();
-        const itemsDb = db.collection('items') //acá llamo a mi colección
-        const itemDb = itemsDb.doc(id) //el ID que me trae useParams
+        const database = getFirestore()
+        const itemDatabase= database.collection('items');//acá llamo a mi colección
+        const item = itemDatabase.doc(itemId.id) //el ID que me trae useParams
 
-        itemDb.get()
+        item.get()
         .then((doc) =>{
             if(!doc.exist){
-                console.log("no existe el documento")
+                console.log("no existe el documento");
                 return;
             }
-            setItem({id: doc.id, ...doc.data() }) //guardo en setitems un obj
+            setSelectedItem({id: doc.id, ...doc.data() }); //guardo en setitems un obj
         })
         .catch((e) => console.log(`ocurrió un error: ${e}`))//para traerme los datos siempre get. porque es una promesa
         //catch para posibles errores
-    }, [id] ) //se queda escuchando a ID
+    }, [itemId] ) //se queda escuchando a ID
 
-/*    useEffect(() => {
-            let gettingItems = new Promise((resolve, reject) => {
-                setTimeout(() => {
-                   resolve(items);
-                },2000);
-                }); 
+    const handleButton = (value) => {
+        value > 0 ? setButtonVisibility(true) : setButtonVisibility(false);
+    };
+    
 
-            gettingItems
-            .then((result) => {
-                let filtered = result.find(
-                    (item) => item.id.toString() === itemId.id
-                );
-                
-                setItem(filtered);
-                
-                });
-      
-    },[itemId]);
-
-*/
     return(
         
+        
             <ItemDetail
-            item={item}
+            laoding={loading}
+            item={selectedItem}
+            handleButton={handleButton}
+            buttonVisibility={buttonVisibility}
+            count={count}
+            setCount={setCount}
              />
         
     );

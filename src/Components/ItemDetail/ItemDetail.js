@@ -1,93 +1,57 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link, useParams} from 'react-router-dom'
 import Count from '../ItemCount/Count'
-import { useCartContext } from '../../Context/CartContext'
+import { CartContext } from '../../Context/CartContext'
 import "./ItemDetail.css"
 import CartModal from "../Modal/CartModal"
 
-const ItemDetail = ({ item }) => {
+const ItemDetail = ({ loading, item, handleButton, buttonVisibility, count, setCount }) => {
 
-    const [count, setCount] = useState(0);
+    const context = useContext(CartContext);
     
     const handleCount = count => {
         setCount(count)
     }
 
-    return(
-        <div>
-        <img src={item.imgUrl} alt="imagenproducto" />
-        <h1>{item.title}</h1>
-        <h3>{item.description}</h3>
-        <h3>{item.price}</h3>
-        <h3>{item.stock}</h3>
-        <Count initial={1} stock={item.stock} onAdd={handleCount} />
-        <Link to="/cart">Agregar al cart</Link>
-        </div>
-        )}
-
-export default ItemDetail
-
-
-/*
-
-const ItemDetail = ({ item }) => {
-
-    const {cart, setCart} = useContext(CartContext)
-    const {stock, setStock} = useContext(CartContext)
-    const {addItems, setAddItems} = useContext(CartContext)
-    
-    useEffect(() => {
-        setStock(item.stock)},
-        [setStock, item.stock])
-
-    const [modal, setModal]= useState(false)
-    const {itemId} = useParams()
-    const onAdd = (counter) => {
-        setModal(true);
-        setAddItems(counter)
-    }
-    useEffect(() => {
-    }, [itemId])
-
-    useEffect(() => {
-        console.log("Added items" ,addItems)
-    }, [addItems])
-
-    useEffect(() => {
-        console.log("Modal:" ,modal)
-    }, [modal])
-
-    useEffect(() => {
-    }, [stock])
-
-    useEffect(() => {
-    }, [cart])
-
-   return(
-        <div className="item_detail">
-            <div className="photo_detail">
-            <img src={item.imgUrl} alt="imagenproducto" />
+    return (
+        <>
+          {loading ? (
+            <div className="loading loading-lg"></div>
+          ) : item === 404 ? (
+            <div>
+              <h1>404</h1>
+              <h3>Item no encontrado.</h3>
+              <Link to="/">
+                <button className="btn btn-primary">Volver</button>
+              </Link>
             </div>
-           
-        <div className="info_detail" key={item.id}>
-            <h1 className="title_detail">{item.title}</h1>
-            <h3 className="description_detail">{item.description}</h3>
-            <h3 className="price_detail">{item.price}</h3>
-            <p className="cat_detail">Categorías:
-            {item.category !== undefined && item.cat.some((category) => {
-                return (<Link ket={category.itemId} to={`/category/${category.itemId}`}>
-                    <span>{category.name}</span> </Link>)
-            })
-        }
-        </p>
-        </div>
-        <div className="counter_detail">
-        <Count initial={1} stock={item.stock} onAdd={addItems} />
-        </div>
-        { modal ? < CartModal item={item} setModal={setModal} addItems={addItems} setAddItems={setAddItems}
-      stock={stock} setStock={setStock} cart={cart} setCart={setCart} itemId={itemId} /> : null }
-    </div>
-  )
-}
+          ) : (
+            <div>
+                <img src={item.imgUrl} alt={item.title} />
+              <div>
+                <h2>{item.title}</h2>
+                <b>Precio: ${item.price}</b>
+                <i>Stock Disponible: {item.stock}</i>
+                <Count
+                  initial={0}
+                  stock={item.stock}
+                  handleButton={handleButton}
+                  count={count}
+                  setCount={setCount}
+                />
+    
+                <Link
+                  to="/cart"
+                  className={`btn btn-primary ${!buttonVisibility && 'disabled'}`}
+                  onClick={() => context.addItem(item, count)}
+                >
+                  Agregar al Carrito
+                </Link>
+              </div>
+            </div>
+          )}
+        </>
+      );
+    };
 
-export default ItemDetail */
+    export default ItemDetail;

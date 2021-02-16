@@ -2,8 +2,12 @@ import React, {useState, useEffect} from 'react';
 import "./Count.css"
 
 
-const Count = ({initial, stock, onAdd}) => { //initial, max
-  const [count, setCount] = useState(1);
+const Count = ({initial, stock, onAdd, count, setCount, handleButton}) => { 
+  
+  useEffect(() => {
+    handleButton(count);},
+    [count]
+  );
 
   const add =()=> {
       count < stock && setCount(count + 1);

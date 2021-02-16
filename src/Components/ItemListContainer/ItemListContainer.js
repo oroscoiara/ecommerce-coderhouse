@@ -2,70 +2,47 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemList from '../ItemList/ItemList';
 import './ItemListContainer.css'
-import {getCatalog} from '../Firebase/index'
-
-const items1 = [
-    {
-        id: 1,
-        title: "collar pequeño",
-        description: "collar para razas mini y medianas",
-        price: 270,
-        stock: 10,
-        category: "perros",
-        imgUrl : 'https://i.imgur.com/X5GQCBP.jpg'
-    },
-    {
-        id: 2,
-        title: "piedras para gatos",
-        description: "piedras para gatos por 5 kg",
-        price: 500,
-        stock: 30,
-        category: "gatos",
-        imgUrl: 'https://i.imgur.com/bqbVitJ.jpg'
-    },
-
-    {
-        id: 3,
-        title: "correa extensible",
-        description: "correa extensible 10 metros",
-        price: 700,
-        stock: 40,
-        category: "perros",
-        imgUrl: 'https://i.imgur.com/XyfxJFl.jpg'
-    },
-];
+import {getFirestore} from '../Firebase/index'
 
 const ItemListContainer = () => {
+    const [loading, setLoading] = useState(true);
+    const [displayingItems, setDisplayingItems] = useState();
     const [items, setItems] = useState([]);
     const {categoryId} = useParams();
 
-    useEffect (() => {
-        let gettingItems = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(items1)
-            },2000);
-            }); 
-
-        gettingItems
-        .then((result) => {
-            console.log(categoryId)
-            if (categoryId) {
-            
-                setItems(result.filter((item) => 
-                    item.category === categoryId
-                ));  
+    useEffect(() => {
+        setLoading(true);
+        let database = getFirestore();
+        let query;
+        if (categoryId.id) {
+            query = database
+            .collection('items')
+            .where('category', '==', categoryId.id);
+        } else {
+            query = database.collection('items');
         }
-            else 
-            setItems(result);
-        })
-            
-    },[categoryId] )
+        query.get().then((querySnapshot) => {
+            let itemsArray = querySnapshot.docs.map((item) =>{
+                return {
+                    ...item.data(),
+                    id: item.id,
 
-     
-    return (
-            <ItemList items={items} />
+                };
+            });
+            setDisplayingItems(itemsArray);
+            setLoading(false);
+        });
+    }, [categoryId]);
 
-        );
+    return(
+        <>
+           <ItemList
+            loading={loading}
+            items={displayingItems}
+            category={categoryId}
+            />
+        </>
+    );
 };
 
 export default ItemListContainer
