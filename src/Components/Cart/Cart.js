@@ -7,7 +7,6 @@ import { Context } from '../../Context/CartContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { getFirestore } from '../Firebase/index';
-import Form from './BuyerForm';
 import "./Cart.css";
 
 const Cart = () => {
