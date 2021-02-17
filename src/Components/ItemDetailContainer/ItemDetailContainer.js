@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import ItemDetail from '../ItemDetail/ItemDetail';
 import { getFirestore} from '../Firebase/index'
-
+import { useParams } from 'react-router-dom';
 const items = [
     {
         id: 1,
@@ -35,14 +34,49 @@ const items = [
 ];
 
 
-const ItemDetailContainer = ({ items }) => {
-    const [count, setCount] = useState(0)
-    const [loading, setLoading]  = useState(true)
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [buttonVisibility, setButtonVisibility] = useState(false);
-    const itemId = useParams();
+const ItemDetailContainer = () => {
+    
+    const [Loading, setLoading] = useState(false);
+    const {itemId} = useParams(); 
+    const [itemSelected, setItemSelected] = useState(); //en setItem guardo en estado local lo que me traigo de db
+    console.log(itemSelected);
 
-    // const [item, setItem]= useState({}); //en setItem guardo en est local lo que me traigo de db
+    useEffect(()=>{
+        setLoading(true);
+        const db = getFirestore();
+        const itemsCollection = db.collection('items'); //acá llamo a mi colección
+        const item = itemsCollection.doc(itemId.id); // (id)
+        
+        item.get().then((doc) => {
+            if (!doc.exists) {
+                console.log('El producto no existe');
+                return;
+            }
+            console.log('Producto encontrado:');   //guardo en setitems un obj
+            setItemSelected({ id: doc.id, ...doc.data() });
+        }).catch((error)=>{
+            console.log('Error en la búsqueda', error);
+        }).finally(() => {
+            setLoading(false);
+        })
+    },[itemId]) //se queda escuchando a ID
+
+    return (
+        <div className='row justify-content-center'>
+            {
+                Loading && <h3>Cargando..</h3>
+            }
+               <ItemDetail item={itemSelected}/>
+        </div>
+    );
+}
+
+export default ItemDetailContainer;
+
+/*
+
+
+    // const [item, setItem]= useState({}); 
     //    const [cartItems, setCartItems] = useContext(useContext)
     
     useEffect(() => {
@@ -62,24 +96,8 @@ const ItemDetailContainer = ({ items }) => {
         //catch para posibles errores
     }, [itemId] ) //se queda escuchando a ID
 
-    const handleButton = (value) => {
-        value > 0 ? setButtonVisibility(true) : setButtonVisibility(false);
-    };
-    
-
-    return(
-        
-        
-            <ItemDetail
-            laoding={loading}
-            item={selectedItem}
-            handleButton={handleButton}
-            buttonVisibility={buttonVisibility}
-            count={count}
-            setCount={setCount}
-             />
-        
     );
 };
 
-export default ItemDetailContainer
+
+*/

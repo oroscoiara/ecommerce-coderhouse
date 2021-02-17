@@ -1,21 +1,30 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { CartContext } from '../../Context/CartContext';
+import {Context} from '../../Context/CartContext';
 
 const CartWidget = () => {
-    const context = useContext(CartContext);
+  const [selectedItems] = useContext(Context);
+  const [amount, setAmount] = useState(0);
 
-    return (
-        <div>
-          <Link to="/cart">
-            <img src={faShoppingCart} alt="Carrito" />
-            {context.cart.length > 0 && (
-              <span className="bg-primary">{CartContext.cart.length}</span>
-            )}
-          </Link>
-          </div>
-      );
-    };
+  useEffect(()=> {
+    let fullAmount = 0;
+    if(selectedItems.length > 0) {
+        selectedItems.map(item => (
+            fullAmount += item.inCart
+        ))
+        setAmount(fullAmount);
+    }
+}, [selectedItems])
+
+  return (
+      <a className="nav-link" href="#">
+        <span className="badge badge-pill badge-light">{amount}</span>
+        <FontAwesomeIcon icon={faShoppingCart} />
+    </a>
+  );
+}
+
 export default CartWidget;
+

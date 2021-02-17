@@ -1,10 +1,32 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom'
 import Count from '../ItemCount/Count'
-import { CartContext } from '../../Context/CartContext'
 import "./ItemDetail.css"
-import CartModal from "../Modal/CartModal"
 
+
+export default function ItemDetail ({item}) {
+
+  return (
+  <div className='col-12 d-flex flex-row justify-content-center p-4'>
+      {
+          item && 
+          (<div>
+          <img src={item.imgUrl} className="card-img-top img-fluid" alt="Imagen del producto"></img>
+          <div className="card-body">
+            <h5 className="card-title">{item.title}</h5>
+            <h6>{item.description}</h6>
+            <p className="card-text mt-2">{item.price}$</p>
+            <Count max="15" min="1" imagen={item.imgUrl} price={item.price} title={item.title}/>
+          </div>
+          </div>)
+      }
+  </div>
+  );
+}
+
+
+
+/*
 const ItemDetail = ({ loading, item, handleButton, buttonVisibility, count, setCount }) => {
 
     const context = useContext(CartContext);
@@ -55,3 +77,5 @@ const ItemDetail = ({ loading, item, handleButton, buttonVisibility, count, setC
     };
 
     export default ItemDetail;
+
+    */

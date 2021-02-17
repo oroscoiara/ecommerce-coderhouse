@@ -14,7 +14,7 @@ const Navbar1 = () => {
             </div>
             </NavLink>
             <p> <a href="/">Productos</a></p>
-            <NavDropdown title="Categories" id="basic-nav-dropdown">
+            <NavDropdown title="Categorías" id="basic-nav-dropdown">
                     <NavDropdown.Item href="/category/perros">Perros</NavDropdown.Item>
                     <NavDropdown.Item href="/category/gatos">Gatos</NavDropdown.Item>
                     <NavDropdown.Item href="/">Todos</NavDropdown.Item>
@@ -22,6 +22,6 @@ const Navbar1 = () => {
                     </NavDropdown>
             <p> <CartWidget> Carrito </CartWidget> </p>          
         </div>
-    )   
-}
+    );   
+};
 export default Navbar1;

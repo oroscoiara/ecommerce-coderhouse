@@ -16,18 +16,3 @@ export function getFirebase() {
 export function getFirestore() {
     return firebase.firestore(app);
 }
-
-
-/*
-export function getCatalog() {
-  const db = getFirestore();
-  const catalog = db.collection("catalog");
-  return catalog.get()
-}
-
-export function getCategories() {
-    const db = getFirestore();
-    const categories = db.collection("categorie").orderBy("order", "asc")
-    return categories.get() 
-  }
-*/
