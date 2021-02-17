@@ -1,3 +1,8 @@
-.imgMain {
-    align-items: center;
+.mainImg {
+    width: 80%;
+    height: 80%;
+    position: relative;
+    margin-right: 10px;
+    margin-left: 60%;
+    padding: 10px;
 }
